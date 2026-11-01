@@ -1,0 +1,38 @@
+@Metadata.layer: #CUSTOMER
+@UI: {
+  headerInfo: {
+    typeName: 'Vats', 
+    typeNamePlural: 'Vats', 
+    title: {
+      type: #STANDARD, 
+      value: 'VatId'
+    }
+  }
+}
+annotate view ZI_Vats with
+{
+  @UI.identification: [ {
+    position: 1 
+  } ]
+  @UI.lineItem: [ {
+    position: 1 
+  } ]
+  @UI.facet: [ {
+    id: 'Vats', 
+    purpose: #STANDARD, 
+    type: #IDENTIFICATION_REFERENCE, 
+    label: 'Vats', 
+    position: 1 
+  } ]
+  VatId;
+  
+  @UI.identification: [ {
+    position: 2 , 
+    label: 'VatDescription'
+  } ]
+  @UI.lineItem: [ {
+    position: 2 , 
+    label: 'VatDescription'
+  } ]
+  VatDescription;
+}

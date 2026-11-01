@@ -1,0 +1,5 @@
+@ObjectModel.leadingEntity.name: 'ZI_Vats_S'
+define service ZUI_VATS {
+  expose ZI_VATS_S as VatsAll;
+  expose ZI_VATS as Vats;
+}

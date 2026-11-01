@@ -1,0 +1,99 @@
+managed implementation in class ZBP_R_1112_INVOICES unique;
+strict ( 2 );
+with draft;
+extensible;
+define behavior for ZR_1112_INVOICES alias Zr1112Invoices
+
+persistent table Z1112_INVOICES
+extensible
+draft table Z1112_INVOICES_D
+etag master LocalCreatedAt
+lock master total etag LocalCreatedAt
+authorization master( global )
+
+{
+
+  field ( readonly )
+  asignment,
+  Brutto,
+  ClearanceDate,
+  CreatedAt,
+   CreatedBy,
+   LocalCreatedBy,
+   LocalCreatedAt,
+   DueDate,
+   PostingDate,
+   VatDescription;
+
+
+field ( readonly, numbering : managed )
+uuid;
+
+
+field (readonly : update, mandatory : create)
+Type, supplier ;
+
+field (mandatory )
+Curr,
+DocDate,
+Netto,
+Reference,
+Text,
+VatAmount,
+VatId;
+
+
+field (features : instance )
+Curr,
+DocDate,
+Reference;
+
+validation plus_amount on save {create; update; field Netto, VatAmount  ;}
+
+validation type_supplier on save { create; field supplier;}
+
+determination set_system_date on save { create ;}
+determination set_due_date on modify { create; field DocDate ;}
+determination calculate_total_amount on modify {create; field netto, VatId;}
+determination assigment_numbers on save { create;}
+
+static factory action creation_invoice [1] ;
+
+static factory action creation_creditnote [1] ;
+
+  create;
+  update;
+  delete;
+
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Edit;
+  draft action Resume;
+  draft determine action Prepare {
+  validation plus_amount;  validation type_supplier; determination set_system_date; }
+
+
+  mapping for Z1112_INVOICES corresponding extensible
+  {
+    uuid = uuid;
+    supplier = supplier_id;
+    Reference = REFERENCE;
+    Type = TYPE;
+    asignment = asignment;
+    DocDate = doc_date;
+    DueDate = due_date;
+    PostingDate = POSTING_DATE;
+    Netto = nett_total;
+    Curr = CURR;
+    VatAmount = vat_amount;
+    VatId = vat_id;
+    Brutto = gross_total;
+    Text = TEXT;
+    ClearanceDate = CLEARANCE_DATE;
+    CreatedBy = CREATED_BY;
+    CreatedAt = CREATED_AT;
+    LocalCreatedBy = LOCAL_CREATED_BY;
+    LocalCreatedAt = LOCAL_CREATED_AT;
+  }
+
+}

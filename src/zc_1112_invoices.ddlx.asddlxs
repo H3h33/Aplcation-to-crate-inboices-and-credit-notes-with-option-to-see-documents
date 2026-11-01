@@ -1,0 +1,120 @@
+@Metadata.layer: #CORE
+@UI.headerInfo: {
+  typeName: 'Invoice',
+  typeNamePlural: 'Invoices',
+  title:       { type: #STANDARD, value: 'Reference' },
+  description: { type: #STANDARD, value: 'Supplier' }
+}
+@UI.presentationVariant: [ {
+  sortOrder: [ { by: 'PostingDate', direction: #DESC } ],
+  visualizations: [ { type: #AS_LINEITEM } ]
+} ]
+annotate view ZC_1112_INVOICES with
+{
+  @UI.facet: [
+    { id: 'GeneralInfo', purpose: #STANDARD, type: #COLLECTION,
+      label: 'General Information', position: 10 },
+    { id: 'Document', parentId: 'GeneralInfo', type: #FIELDGROUP_REFERENCE,
+      targetQualifier: 'Document', label: 'Document', position: 10 },
+    { id: 'Dates', parentId: 'GeneralInfo', type: #FIELDGROUP_REFERENCE,
+      targetQualifier: 'Dates', label: 'Dates', position: 20 },
+    { id: 'Amounts', parentId: 'GeneralInfo', type: #FIELDGROUP_REFERENCE,
+      targetQualifier: 'Amounts', label: 'Amounts', position: 30 },
+    { id: 'Admin', purpose: #STANDARD, type: #FIELDGROUP_REFERENCE,
+      targetQualifier: 'Admin', label: 'Administrative Data', position: 20 }
+  ]
+  @UI.hidden: true
+  uuid;
+  @UI.textArrangement: #TEXT_FIRST
+  @EndUserText.label: 'Supplier'
+  @UI.lineItem:      [ { position: 10, importance: #HIGH } ]
+  @UI.selectionField: [ { position: 10 } ]
+  @UI.fieldGroup:    [ { qualifier: 'Document', position: 10 } ]
+  supplier;
+
+  @EndUserText.label: 'Document Type'
+  @UI.lineItem:      [ { position: 20, importance: #HIGH } ]
+  @UI.selectionField: [ { position: 20 } ]
+  @UI.fieldGroup:    [ { qualifier: 'Document', position: 20 } ]
+  Type;
+
+  @EndUserText.label: 'Reference'
+  @UI.lineItem:      [ { position: 40, importance: #HIGH } ]
+  @UI.selectionField: [ { position: 40 } ]
+  @UI.fieldGroup:    [ { qualifier: 'Document', position: 30 } ]
+  Reference;
+
+
+  @EndUserText.label: 'Text'
+  @UI.lineItem:      [ { position: 100, importance: #LOW } ]
+  @UI.fieldGroup:    [ { qualifier: 'Document', position: 50 } ]
+  Text;
+
+  @EndUserText.label: 'Document Date'
+  @UI.lineItem:      [ { position: 50, importance: #MEDIUM } ]
+  @UI.selectionField: [ { position: 50 } ]
+  @UI.fieldGroup:    [ { qualifier: 'Dates', position: 10 } ]
+  DocDate;
+
+  @EndUserText.label: 'Posting Date'
+  @UI.lineItem:      [ { position: 60, importance: #MEDIUM } ]
+  @UI.selectionField: [ { position: 60 } ]
+  @UI.fieldGroup:    [ { qualifier: 'Dates', position: 20 } ]
+  PostingDate;
+
+  @EndUserText.label: 'Net Due Date'
+  @UI.lineItem:      [ { position: 70, importance: #HIGH } ]
+  @UI.selectionField: [ { position: 70 } ]
+  @UI.fieldGroup:    [ { qualifier: 'Dates', position: 30 } ]
+  DueDate;
+
+  @EndUserText.label: 'Clearing Date'
+  @UI.lineItem:      [ { position: 80, importance: #MEDIUM } ]
+  @UI.fieldGroup:    [ { qualifier: 'Dates', position: 40 } ]
+  ClearanceDate;
+
+  @EndUserText.label: 'Net Amount'
+  @UI.lineItem:      [ { position: 90, importance: #MEDIUM } ]
+  @UI.fieldGroup:    [ { qualifier: 'Amounts', position: 10 } ]
+  Netto;
+  
+  @EndUserText.label: 'VatAmount'
+  @UI.selectionField: [{position: 30}]
+  @UI.fieldGroup: [ { qualifier: 'Amounts', position:30 } ]
+  VatAmount;
+  
+  @UI.textArrangement: #TEXT_FIRST 
+  @EndUserText.label: 'VAT ID'
+  @UI.selectionField: [ { position: 40 } ]
+  @UI.fieldGroup:    [ { qualifier: 'Amounts', position: 40 } ]
+  
+  VatId;
+
+  @EndUserText.label: 'Gross Amount'
+  @UI.lineItem:      [ { position: 100, importance: #HIGH } ]
+  @UI.fieldGroup:    [ { qualifier: 'Amounts', position: 50 } ]
+  Brutto;
+
+  @EndUserText.label: 'Currency'
+  @UI.selectionField: [ { position: 70 } ]
+  @UI.fieldGroup:    [ { qualifier: 'Amounts', position: 20 } ]
+  Curr;
+
+  @EndUserText.label: 'Created By'
+  @UI.fieldGroup:    [ { qualifier: 'Admin', position: 10 } ]
+  CreatedBy;
+
+  @EndUserText.label: 'Created At'
+  @UI.fieldGroup:    [ { qualifier: 'Admin', position: 20 } ]
+  CreatedAt;
+    
+  @EndUserText.label: 'assigment'
+  @UI.lineItem: [{ position: 30 , importance: #HIGH }]
+  asignment;
+  
+  @UI.hidden: true
+  LocalCreatedBy;
+
+  @UI.hidden: true
+  LocalCreatedAt;
+}

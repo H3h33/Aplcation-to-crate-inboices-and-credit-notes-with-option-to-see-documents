@@ -1,0 +1,77 @@
+managed implementation in class ZBP_I_VATS_S unique;
+strict ( 2 );
+with draft;
+define behavior for ZI_Vats_S alias VatsAll
+draft table Z1112VATS_D_S
+with unmanaged save
+lock master total etag LastChangedAtMax
+authorization master( global )
+{
+  field ( readonly )
+   SingletonID;
+
+  field ( notrigger )
+   SingletonID,
+   LastChangedAtMax;
+
+
+  update;
+  internal create;
+  internal delete;
+
+  draft action ( features : instance ) Edit;
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare {
+    validation Vats ~ ValidateDataConsistency;
+  }
+
+  association _Vats { create ( features : instance ); with draft; }
+
+}
+
+define behavior for ZI_Vats alias Vats ##UNMAPPED_FIELD[SingletonID]
+persistent table Z1112VATS
+draft table Z1112VATS_D
+etag master LocalLastChangedAt
+lock dependent by _VatsAll
+authorization dependent by _VatsAll
+{
+  field ( mandatory : create )
+   VatId;
+
+  field ( readonly )
+   SingletonID,
+   LastChangedAt,
+   LocalLastChangedAt;
+
+  field ( readonly : update )
+   VatId;
+
+  field ( notrigger )
+   SingletonID,
+   LastChangedAt,
+   LocalLastChangedAt;
+
+
+  update( features : global );
+  delete( features : global );
+
+  mapping for Z1112VATS
+  {
+    VatId = VAT_ID;
+    VatDescription = VAT_DESCRIPTION;
+    LastChangedAt = LAST_CHANGED_AT;
+    LocalLastChangedAt = LOCAL_LAST_CHANGED_AT;
+  }
+
+  association _VatsAll { with draft; }
+
+  validation ValidateDataConsistency on save
+  {
+    create;
+    update;
+  }
+
+}
