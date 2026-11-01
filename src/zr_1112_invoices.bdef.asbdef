@@ -19,6 +19,8 @@ authorization master( global )
   ClearanceDate,
   CreatedAt,
    CreatedBy,
+   ClearingStatus,
+ClearingStatusCriticality,
    LocalCreatedBy,
    LocalCreatedAt,
    DueDate,
@@ -39,23 +41,32 @@ DocDate,
 Netto,
 Reference,
 Text,
+PaymenTerms,
 VatAmount,
 VatId;
 
 
 field (features : instance )
 Curr,
-DocDate,
-Reference;
+Netto,
+Reference,
+VatAmount,
+VatId;
 
 validation plus_amount on save {create; update; field Netto, VatAmount  ;}
-
 validation type_supplier on save { create; field supplier;}
+validation type_vatid on save {create; field VatId;}
 
-determination set_system_date on save { create ;}
-determination set_due_date on modify { create; field DocDate ;}
-determination calculate_total_amount on modify {create; field netto, VatId;}
-determination assigment_numbers on save { create;}
+determination set_system_date on save { create;}
+determination calculateDueDate on modify { create; field PaymenTerms, DocDate; }
+determination calculate_total_amount on modify {create; field netto, VatAmount;}
+determination set_asignment on save {create;}
+
+side effects
+{
+  field PaymenTerms affects field DueDate;
+  field DocDate      affects field DueDate;
+}
 
 static factory action creation_invoice [1] ;
 
@@ -70,7 +81,8 @@ static factory action creation_creditnote [1] ;
   draft action Edit;
   draft action Resume;
   draft determine action Prepare {
-  validation plus_amount;  validation type_supplier; determination set_system_date; }
+  validation plus_amount;  validation type_supplier; validation type_vatid;  determination set_system_date;
+  determination set_asignment; }
 
 
   mapping for Z1112_INVOICES corresponding extensible
@@ -81,6 +93,7 @@ static factory action creation_creditnote [1] ;
     Type = TYPE;
     asignment = asignment;
     DocDate = doc_date;
+    PaymenTerms = payment_terms;
     DueDate = due_date;
     PostingDate = POSTING_DATE;
     Netto = nett_total;

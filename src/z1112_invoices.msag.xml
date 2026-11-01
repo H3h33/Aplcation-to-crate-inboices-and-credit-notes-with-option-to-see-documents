@@ -7,6 +7,44 @@
     <MASTERLANG>E</MASTERLANG>
     <STEXT>Message class for invoices aplication</STEXT>
    </T100A>
+   <T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>Z1112_INVOICES</ARBGB>
+     <MSGNR>001</MSGNR>
+     <TEXT>Supplier &amp;1 does not exist</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>Z1112_INVOICES</ARBGB>
+     <MSGNR>002</MSGNR>
+     <TEXT>&amp;1 must be negative for a credit memo</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>Z1112_INVOICES</ARBGB>
+     <MSGNR>003</MSGNR>
+     <TEXT>&amp;1 must be positive for an invoice</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>Z1112_INVOICES</ARBGB>
+     <MSGNR>004</MSGNR>
+     <TEXT>VAT code &amp;1 does not exist</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>Z1112_INVOICES</ARBGB>
+     <MSGNR>005</MSGNR>
+     <TEXT>VAT amount deviates from expected value &amp;1</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>E</SPRSL>
+     <ARBGB>Z1112_INVOICES</ARBGB>
+     <MSGNR>006</MSGNR>
+     <TEXT>Document number could not be assigned</TEXT>
+    </T100>
+   </T100>
   </asx:values>
  </asx:abap>
 </abapGit>

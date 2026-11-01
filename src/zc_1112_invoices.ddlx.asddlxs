@@ -56,6 +56,11 @@ annotate view ZC_1112_INVOICES with
   @UI.fieldGroup:    [ { qualifier: 'Dates', position: 10 } ]
   DocDate;
 
+  @EndUserText.label: 'Payment Terms'
+  @UI.fieldGroup: [ { qualifier: 'Dates', position: 25 } ]
+  @UI.textArrangement: #TEXT_FIRST
+  paymenterms;
+
   @EndUserText.label: 'Posting Date'
   @UI.lineItem:      [ { position: 60, importance: #MEDIUM } ]
   @UI.selectionField: [ { position: 60 } ]
@@ -89,6 +94,14 @@ annotate view ZC_1112_INVOICES with
   @UI.fieldGroup:    [ { qualifier: 'Amounts', position: 40 } ]
   
   VatId;
+@EndUserText.label: 'Status'
+@UI.lineItem:       [ { position: 2, criticality: 'ClearingStatusCriticality', importance: #HIGH } ]
+@UI.fieldGroup:     [ { qualifier: 'Dates', position: 50, criticality: 'ClearingStatusCriticality' } ]
+@UI.selectionField: [ { position: 15 } ]
+ClearingStatus;
+
+@UI.hidden: true
+ClearingStatusCriticality;
 
   @EndUserText.label: 'Gross Amount'
   @UI.lineItem:      [ { position: 100, importance: #HIGH } ]

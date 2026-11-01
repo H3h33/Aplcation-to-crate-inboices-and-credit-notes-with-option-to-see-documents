@@ -25,6 +25,12 @@ define root view entity ZC_1112_INVOICES
   Type,
   asignment,
   DocDate,
+    @Consumption.valueHelpDefinition: [{ 
+     entity.name: 'ZR_1112_PAYMTERMS',
+     entity.element: 'TermId',
+     useForValidation: true
+   }]
+  PaymenTerms,
   DueDate,
   PostingDate,
   Netto,
@@ -44,6 +50,8 @@ define root view entity ZC_1112_INVOICES
   Brutto,
   Text,
   ClearanceDate,
+  ClearingStatus,
+ClearingStatusCriticality,
   @Semantics: {
     user.createdBy: true
   }
